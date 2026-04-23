@@ -3,7 +3,12 @@ import { useLang } from "@/i18n/LanguageContext";
 import IdBadge from "./IdBadge";
 
 const Hero = () => {
-  const { tr } = useLang();
+  const { tr, lang } = useLang();
+  const stats = [
+    { v: "5+", l: { ua: "років досвіду", en: "years building" } },
+    { v: "30+", l: { ua: "проєктів", en: "projects shipped" } },
+    { v: "US", l: { ua: "сертифікація", en: "certified" } },
+  ];
   return (
     <section id="top" className="relative pt-32 md:pt-40 pb-20 overflow-hidden">
       <div className="absolute inset-0 grid-bg pointer-events-none" />
@@ -45,14 +50,10 @@ const Hero = () => {
 
             {/* Stats */}
             <div className="mt-12 grid grid-cols-3 gap-6 max-w-md">
-              {[
-                { v: "5+", l: { ua: "років досвіду", en: "years building" } },
-                { v: "30+", l: { ua: "проєктів", en: "projects shipped" } },
-                { v: "US", l: { ua: "сертифікація", en: "certified" } },
-              ].map((s, i) => (
+              {stats.map((s, i) => (
                 <div key={i}>
                   <div className="text-2xl md:text-3xl font-bold tracking-tight">{s.v}</div>
-                  <div className="text-xs text-muted-foreground mt-1">{tr("heroBadge") && (s.l as any)[useLangSafe()] }</div>
+                  <div className="text-xs text-muted-foreground mt-1">{s.l[lang]}</div>
                 </div>
               ))}
             </div>
@@ -67,11 +68,5 @@ const Hero = () => {
     </section>
   );
 };
-
-// Tiny inline helper to avoid passing through context twice in stat row
-function useLangSafe(): "ua" | "en" {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  return useLang().lang;
-}
 
 export default Hero;
