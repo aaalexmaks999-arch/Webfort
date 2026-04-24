@@ -44,6 +44,7 @@ const projects: Project[] = [
 
 const BentoProjects = () => {
   const { tr } = useLang();
+  
   return (
     <section id="work" className="py-24 md:py-32">
       <div className="container">
@@ -53,58 +54,60 @@ const BentoProjects = () => {
           <p className="mt-4 text-muted-foreground">{tr("workSub")}</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-4 md:auto-rows-[200px] gap-4 md:gap-5">
+        {/* Убрали жесткое ограничение высоты auto-rows-[200px], теперь сетка "дышит" */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-5 auto-rows-auto">
           {projects.map((p, i) => {
             const Icon = p.icon;
             return (
               <article
                 key={i}
                 className={cn(
-                  "group relative overflow-hidden rounded-3xl glass border border-border/60 shadow-soft",
-                  "transition-all duration-500 hover:shadow-lift hover:-translate-y-2 hover:border-primary/30",
+                  "group relative overflow-hidden rounded-3xl bg-white/50 backdrop-blur-sm border border-slate-200/60 shadow-sm flex flex-col",
+                  "transition-all duration-500 hover:shadow-xl hover:shadow-blue-500/5 hover:-translate-y-2 hover:border-blue-200",
                   p.className
                 )}
               >
-                {/* Bg image fade */}
+                {/* Фоновая картинка (появляется очень мягко при наведении) */}
                 <div
-                  className="absolute inset-0 bg-cover bg-center opacity-0 group-hover:opacity-100 transition-opacity duration-700 scale-105 group-hover:scale-100"
+                  className="absolute inset-0 bg-cover bg-center opacity-0 group-hover:opacity-10 transition-all duration-700 scale-105 group-hover:scale-100 z-0"
                   style={{ backgroundImage: `url(${p.image})` }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-white/95 via-white/80 to-white/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                
+                {/* Легкий градиент поверх картинки, чтобы текст всегда читался */}
+                <div className="absolute inset-0 bg-gradient-to-t from-white via-white/80 to-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0" />
 
-                <div className="relative h-full w-full flex flex-col justify-between p-5 md:p-6 overflow-hidden">
-                  {/* Top row */}
-                  <div className="flex items-start justify-between shrink-0">
-                    <div className="w-10 h-10 md:w-11 md:h-11 rounded-xl glass-strong flex items-center justify-center shadow-soft">
-                      <Icon className="w-5 h-5 text-primary" />
+                {/* Основной контент (z-10 чтобы быть поверх фона) */}
+                <div className="relative z-10 h-full w-full flex flex-col p-6">
+                  
+                  {/* Иконки сверху */}
+                  <div className="flex items-start justify-between shrink-0 mb-5">
+                    <div className="w-11 h-11 rounded-2xl bg-white border border-slate-100 flex items-center justify-center shadow-sm">
+                      <Icon className="w-5 h-5 text-blue-600" />
                     </div>
-                    <ArrowUpRight className="w-5 h-5 text-muted-foreground transition-all duration-500 group-hover:text-primary group-hover:rotate-12" />
+                    <ArrowUpRight className="w-5 h-5 text-slate-400 transition-all duration-500 group-hover:text-blue-600 group-hover:rotate-12" />
                   </div>
 
-                  {/* Title (always visible) */}
-                  <h3 className="mt-4 text-base md:text-lg lg:text-xl font-semibold tracking-tight line-clamp-2">
+                  {/* Заголовок (Всегда видим) */}
+                  <h3 className="text-lg md:text-xl font-bold tracking-tight text-slate-900 mb-3">
                     {tr(p.titleKey)}
                   </h3>
 
-                  {/* Reveal content */}
-                  <div className="mt-3 flex flex-col gap-2.5 min-w-0">
-                    <p className="text-[13px] md:text-sm text-foreground/80 leading-snug opacity-0 group-hover:opacity-100 transition-opacity duration-500 line-clamp-3">
-                      {tr(p.descKey)}
-                    </p>
+                  {/* Текст описания (Всегда видим, flex-grow заставляет его толкать кнопку вниз) */}
+                  <p className="text-sm text-slate-600 leading-relaxed mb-5 flex-grow">
+                    {tr(p.descKey)}
+                  </p>
 
-                    <div className="flex flex-wrap gap-1.5 translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 delay-75">
-                      {p.tags.map((t) => (
-                        <span key={t} className="px-2 py-0.5 text-[10px] md:text-[11px] font-medium rounded-full bg-white/90 border border-border text-foreground/80">
-                          {t}
-                        </span>
-                      ))}
-                    </div>
-
-                    <button className="self-start mt-1 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white border border-border text-[11px] md:text-xs font-semibold text-primary shadow-soft translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 delay-100 hover:bg-accent">
-                      {tr("viewProject")}
-                      <ArrowUpRight className="w-3.5 h-3.5" />
-                    </button>
+                  {/* Теги (Всегда видимы) */}
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {p.tags.map((t) => (
+                      <span key={t} className="px-3 py-1 text-[11px] font-semibold tracking-wide rounded-full bg-slate-100 text-slate-600 border border-slate-200">
+                        {t}
+                      </span>
+                    ))}
                   </div>
+
+                  
+
                 </div>
               </article>
             );

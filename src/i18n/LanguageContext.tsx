@@ -68,10 +68,10 @@ export const t: Dict = {
   certsSub: { ua: "Наведіть курсор — деталі на звороті.", en: "Hover to flip — details on the back." },
   stackTitle: { ua: "Технологічний стек", en: "Tech Stack" },
   stackSub: { ua: "Інструменти, з якими я будую системи щодня.", en: "Tools I build with every day." },
-  contactTitle: { ua: "Поговорімо", en: "Let's talk" },
+  contactTitle: { ua: "Створімо щось.", en: "Let's build something." },
   contactSub: {
-    ua: "Готовий обговорити ваш проєкт. Відповідаю протягом доби.",
-    en: "Ready to discuss your project. I respond within 24h.",
+    ua: "Розкажіть про ваш проєкт. Відповім протягом 24 годин з чесними думками та наступними кроками.",
+    en: "Tell me about your project. I'll reply within 24 hours with honest thoughts and next steps.",
   },
   formName: { ua: "Ім'я", en: "Name" },
   formEmail: { ua: "Email", en: "Email" },
