@@ -2,6 +2,7 @@ import { useLang } from "@/i18n/LanguageContext";
 import certIgnition from "@/assets/cert-ignition.jpg";
 import certEa from "@/assets/cert-ea.jpg";
 import certHyperskill from "@/assets/cert-hyperskill.jpg";
+import certKaggle from "@/assets/cert-kaggle.png";
 
 const certs = [
   {
@@ -25,6 +26,13 @@ const certs = [
     backKey: "cert3Back" as const,
     accent: "from-emerald-300/40 to-cyan-300/40",
   },
+  {
+    img: certKaggle,
+    title: "Maksymenko Oleksandr",
+    sub: "Python / AI · Kaggle",
+    backKey: "cert4Back" as const,
+    accent: "from-yellow-300/40 to-sky-300/40",
+  },
 ];
 
 const Certifications = () => {
@@ -38,7 +46,7 @@ const Certifications = () => {
           <p className="mt-4 text-muted-foreground">{tr("certsSub")}</p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-6 md:gap-8">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
           {certs.map((c, i) => (
             <div key={i} className="cert-card h-[280px] md:h-[300px]">
               <div className="cert-card-inner">
@@ -50,21 +58,21 @@ const Certifications = () => {
                       <img src={c.img} alt={c.title} loading="lazy" className="w-full h-full object-cover" />
                     </div>
                     <div className="mt-4 flex items-center justify-between">
-                      <div>
-                        <div className="text-sm font-semibold">{c.title}</div>
-                        <div className="text-[11px] text-muted-foreground">{c.sub}</div>
+                      <div className="min-w-0">
+                        <div className="text-sm font-semibold truncate">{c.title}</div>
+                        <div className="text-[11px] text-muted-foreground truncate">{c.sub}</div>
                       </div>
-                      <div className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground">Hover →</div>
+                      <div className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground shrink-0 ml-2">Hover →</div>
                     </div>
                   </div>
                 </div>
 
                 {/* Back */}
-                <div className="cert-face cert-back rounded-2xl overflow-hidden bg-foreground text-background shadow-lift p-7 flex flex-col justify-between">
+                <div className="cert-face cert-back rounded-2xl overflow-hidden bg-foreground text-background shadow-lift p-6 flex flex-col justify-center items-start gap-3">
                   <div className="holo-shine absolute inset-0 opacity-20 mix-blend-overlay pointer-events-none" />
                   <div className="relative">
                     <div className="text-[10px] font-mono uppercase tracking-widest text-background/60">Certificate</div>
-                    <div className="mt-2 text-xl font-semibold">{c.title}</div>
+                    <div className="mt-1.5 text-lg font-semibold leading-tight">{c.title}</div>
                   </div>
                   <p className="relative text-sm leading-relaxed text-background/85">{tr(c.backKey)}</p>
                   <div className="relative text-[11px] text-background/60">{c.sub}</div>

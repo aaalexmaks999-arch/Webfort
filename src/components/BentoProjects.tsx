@@ -61,7 +61,7 @@ const BentoProjects = () => {
                 key={i}
                 className={cn(
                   "group relative overflow-hidden rounded-3xl glass border border-border/60 shadow-soft",
-                  "transition-all duration-500 hover:shadow-lift hover:-translate-y-1 hover:border-primary/30",
+                  "transition-all duration-500 hover:shadow-lift hover:-translate-y-2 hover:border-primary/30",
                   p.className
                 )}
               >
@@ -70,7 +70,7 @@ const BentoProjects = () => {
                   className="absolute inset-0 bg-cover bg-center opacity-0 group-hover:opacity-100 transition-opacity duration-700 scale-105 group-hover:scale-100"
                   style={{ backgroundImage: `url(${p.image})` }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-white/95 via-white/60 to-white/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="absolute inset-0 bg-gradient-to-t from-white/95 via-white/70 to-white/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                 <div className="relative h-full flex flex-col p-6 md:p-7">
                   <div className="flex items-start justify-between">
@@ -86,20 +86,20 @@ const BentoProjects = () => {
 
                   {/* Reveal layer */}
                   <div className="mt-auto">
-                    <p className="text-sm text-muted-foreground max-h-0 opacity-0 group-hover:max-h-32 group-hover:opacity-100 transition-all duration-500 overflow-hidden">
+                    <p className="text-sm text-foreground/80 max-h-0 opacity-0 group-hover:max-h-32 group-hover:opacity-100 transition-all duration-500 overflow-hidden">
                       {tr(p.descKey)}
                     </p>
 
                     <div className="mt-3 flex flex-wrap gap-1.5 translate-y-3 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 delay-75">
                       {p.tags.map((t) => (
-                        <span key={t} className="px-2.5 py-1 text-[11px] font-medium rounded-full bg-white/80 border border-border text-foreground/80">
+                        <span key={t} className="px-2.5 py-1 text-[11px] font-medium rounded-full bg-white/90 border border-border text-foreground/80">
                           {t}
                         </span>
                       ))}
                     </div>
 
-                    <button className="mt-4 inline-flex items-center gap-1.5 text-xs font-semibold text-primary translate-y-3 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 delay-100">
-                      {tr("viewCase")}
+                    <button className="mt-4 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white border border-border text-xs font-semibold text-primary shadow-soft translate-y-3 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 delay-100 hover:bg-accent">
+                      {tr("viewProject")}
                       <ArrowUpRight className="w-3.5 h-3.5" />
                     </button>
                   </div>
