@@ -4,33 +4,45 @@ import certEa from "@/assets/cert-ea.jpg";
 import certHyperskill from "@/assets/cert-hyperskill.jpg";
 import certKaggle from "@/assets/cert-kaggle.png";
 
-const certs = [
+type Cert = {
+  img: string;
+  title: string;
+  titleKey?: "cert1Title";
+  sub: string;
+  tagKey?: "cert1Tag";
+  backKey: "cert1Back" | "cert2Back" | "cert3Back" | "cert4Back";
+  accent: string;
+};
+
+const certs: Cert[] = [
   {
     img: certIgnition,
     title: "Ignition 8.1",
+    titleKey: "cert1Title",
+    tagKey: "cert1Tag",
     sub: "US-Certified · Inductive Automation",
-    backKey: "cert1Back" as const,
+    backKey: "cert1Back",
     accent: "from-primary/30 to-primary-glow/30",
   },
   {
     img: certEa,
     title: "Electronic Arts",
     sub: "Software Engineering · Forage",
-    backKey: "cert2Back" as const,
+    backKey: "cert2Back",
     accent: "from-rose-300/40 to-orange-300/40",
   },
   {
     img: certHyperskill,
     title: "JetBrains Academy",
     sub: "SQL Fundamentals · Hyperskill",
-    backKey: "cert3Back" as const,
+    backKey: "cert3Back",
     accent: "from-emerald-300/40 to-cyan-300/40",
   },
   {
     img: certKaggle,
     title: "Maksymenko Oleksandr",
     sub: "Python / AI · Kaggle",
-    backKey: "cert4Back" as const,
+    backKey: "cert4Back",
     accent: "from-yellow-300/40 to-sky-300/40",
   },
 ];
