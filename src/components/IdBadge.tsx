@@ -11,20 +11,23 @@ const IdBadge = () => {
   const { tr } = useLang();
   const containerRef = useRef<HTMLDivElement>(null);
 
+  // Drag-controlled motion values (bound to the badge via style)
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
-  // Spring back to origin (the "lanyard tension")
-  const sx = useSpring(x, { stiffness: 90, damping: 8, mass: 1.2 });
-  const sy = useSpring(y, { stiffness: 90, damping: 8, mass: 1.2 });
+  // Smoothed values for the lanyard cord (so it follows fluidly)
+  const sx = useSpring(x, { stiffness: 120, damping: 14, mass: 0.8 });
+  const sy = useSpring(y, { stiffness: 120, damping: 14, mass: 0.8 });
 
   // Rotation derived from horizontal displacement — like a real swinging badge
   const rotate = useTransform(sx, [-200, 200], [-22, 22]);
-  // Subtle scale on grab handled below
 
-  // Lanyard SVG endpoints follow the badge top
-  const cordX = useTransform(sx, (v) => v);
-  const cordY = useTransform(sy, (v) => v);
+  // Lanyard SVG curve from anchor (200, 6) to badge top — follows badge
+  const cordPath = useTransform(
+    [sx, sy],
+    ([cx, cy]: number[]) =>
+      `M 200 6 Q ${200 + cx * 0.4} ${120 + cy * 0.3} ${200 + cx} ${220 + cy}`
+  );
 
   return (
     <div
@@ -33,7 +36,7 @@ const IdBadge = () => {
       style={{ touchAction: "none" }}
     >
       {/* Anchor point at top */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-foreground/80 shadow-soft z-20" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-foreground/80 shadow-soft z-20 pointer-events-none" />
 
       {/* Lanyard cord (SVG curve from anchor to badge top) */}
       <svg
@@ -42,11 +45,7 @@ const IdBadge = () => {
         preserveAspectRatio="none"
       >
         <motion.path
-          d={useTransform(
-            [cordX, cordY],
-            ([cx, cy]: number[]) =>
-              `M 200 6 Q ${200 + cx * 0.4} ${120 + cy * 0.3} ${200 + cx} ${220 + cy}`
-          ) as unknown as string}
+          d={cordPath}
           stroke="hsl(var(--foreground) / 0.85)"
           strokeWidth="3"
           fill="none"
@@ -54,27 +53,19 @@ const IdBadge = () => {
         />
       </svg>
 
-      {/* Draggable badge */}
+      {/* Draggable badge — drag is the source of truth, x/y track the drag */}
       <motion.div
         drag
         dragConstraints={{ left: -180, right: 180, top: -40, bottom: 200 }}
         dragElastic={0.6}
         dragTransition={{ bounceStiffness: 120, bounceDamping: 10 }}
-        onDrag={(_, info) => {
-          x.set(info.offset.x);
-          y.set(info.offset.y);
-        }}
-        onDragEnd={() => {
-          x.set(0);
-          y.set(0);
-        }}
-        whileDrag={{ scale: 1.04, cursor: "grabbing" }}
-        style={{ x: sx, y: sy, rotate }}
-        className="absolute top-[210px] z-20 cursor-grab active:cursor-grabbing"
+        whileDrag={{ scale: 1.04 }}
+        style={{ x, y, rotate }}
+        className="absolute top-[210px] z-30 cursor-grab active:cursor-grabbing"
       >
         {/* Lanyard clip */}
-        <div className="mx-auto w-10 h-5 rounded-t-md bg-gradient-to-b from-zinc-300 to-zinc-500 shadow-soft" />
-        <div className="mx-auto w-3 h-4 -mt-px bg-zinc-400" />
+        <div className="mx-auto w-10 h-5 rounded-t-md bg-gradient-to-b from-zinc-300 to-zinc-500 shadow-soft pointer-events-none" />
+        <div className="mx-auto w-3 h-4 -mt-px bg-zinc-400 pointer-events-none" />
 
         {/* Card */}
         <div className="relative w-[260px] rounded-2xl overflow-hidden glass-strong shadow-lift border border-white/60">
@@ -95,7 +86,7 @@ const IdBadge = () => {
                 <img
                   src={profile}
                   alt="Oleksandr Maksymenko"
-                  className="w-16 h-16 rounded-xl object-cover border border-border shadow-soft"
+                  className="w-16 h-16 rounded-xl object-cover border border-border shadow-soft pointer-events-none"
                   draggable={false}
                 />
                 <div className="absolute -inset-px rounded-xl ring-1 ring-primary/30 pointer-events-none" />
@@ -128,7 +119,7 @@ const IdBadge = () => {
         </div>
 
         {/* Tiny hint */}
-        <div className="mt-3 text-center text-[10px] font-mono uppercase tracking-widest text-muted-foreground">
+        <div className="mt-3 text-center text-[10px] font-mono uppercase tracking-widest text-muted-foreground pointer-events-none">
           ← drag me →
         </div>
       </motion.div>

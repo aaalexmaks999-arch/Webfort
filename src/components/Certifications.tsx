@@ -38,18 +38,12 @@ const Certifications = () => {
           <p className="mt-4 text-muted-foreground">{tr("certsSub")}</p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-6 md:gap-8" style={{ perspective: "1500px" }}>
+        <div className="grid md:grid-cols-3 gap-6 md:gap-8">
           {certs.map((c, i) => (
-            <div key={i} className="group relative h-[280px] md:h-[300px]" style={{ transformStyle: "preserve-3d" }}>
-              <div
-                className="relative w-full h-full transition-transform duration-700 ease-out"
-                style={{ transformStyle: "preserve-3d", transform: "rotateY(0deg)" }}
-              >
+            <div key={i} className="cert-card h-[280px] md:h-[300px]">
+              <div className="cert-card-inner">
                 {/* Front */}
-                <div
-                  className="absolute inset-0 rounded-2xl overflow-hidden glass-strong shadow-elegant border border-border/60"
-                  style={{ backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden" }}
-                >
+                <div className="cert-face cert-front rounded-2xl overflow-hidden glass-strong shadow-elegant border border-border/60">
                   <div className={`absolute inset-0 bg-gradient-to-br ${c.accent} opacity-60`} />
                   <div className="relative h-full p-4 flex flex-col">
                     <div className="flex-1 rounded-xl overflow-hidden bg-white shadow-soft">
@@ -66,11 +60,8 @@ const Certifications = () => {
                 </div>
 
                 {/* Back */}
-                <div
-                  className="absolute inset-0 rounded-2xl overflow-hidden bg-foreground text-background shadow-lift p-7 flex flex-col justify-between"
-                  style={{ backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden", transform: "rotateY(180deg)" }}
-                >
-                  <div className="holo-shine absolute inset-0 opacity-20 mix-blend-overlay" />
+                <div className="cert-face cert-back rounded-2xl overflow-hidden bg-foreground text-background shadow-lift p-7 flex flex-col justify-between">
+                  <div className="holo-shine absolute inset-0 opacity-20 mix-blend-overlay pointer-events-none" />
                   <div className="relative">
                     <div className="text-[10px] font-mono uppercase tracking-widest text-background/60">Certificate</div>
                     <div className="mt-2 text-xl font-semibold">{c.title}</div>
@@ -79,11 +70,6 @@ const Certifications = () => {
                   <div className="relative text-[11px] text-background/60">{c.sub}</div>
                 </div>
               </div>
-
-              {/* Hover trigger via group-hover style */}
-              <style>{`
-                .group:hover > div { transform: rotateY(180deg); }
-              `}</style>
             </div>
           ))}
         </div>
