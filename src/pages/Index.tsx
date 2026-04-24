@@ -4,6 +4,7 @@ import Hero from "@/components/Hero";
 import BentoProjects from "@/components/BentoProjects";
 import Certifications from "@/components/Certifications";
 import StackMarquee from "@/components/StackMarquee";
+import Process from "@/components/Process";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 
@@ -15,6 +16,7 @@ const Index = () => {
         <main>
           <Hero />
           <BentoProjects />
+          <Process />
           <Certifications />
           <StackMarquee />
           <Contact />
