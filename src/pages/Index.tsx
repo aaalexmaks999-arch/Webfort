@@ -1,6 +1,7 @@
 import { LanguageProvider } from "@/i18n/LanguageContext";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
+import Services from "@/components/Services";
 import BentoProjects from "@/components/BentoProjects";
 import Certifications from "@/components/Certifications";
 import StackMarquee from "@/components/StackMarquee";
@@ -15,6 +16,7 @@ const Index = () => {
         <Navbar />
         <main>
           <Hero />
+          <Services />
           <BentoProjects />
           <Process />
           <Certifications />

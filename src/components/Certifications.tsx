@@ -4,33 +4,45 @@ import certEa from "@/assets/cert-ea.jpg";
 import certHyperskill from "@/assets/cert-hyperskill.jpg";
 import certKaggle from "@/assets/cert-kaggle.png";
 
-const certs = [
+type Cert = {
+  img: string;
+  title: string;
+  titleKey?: "cert1Title";
+  sub: string;
+  tagKey?: "cert1Tag";
+  backKey: "cert1Back" | "cert2Back" | "cert3Back" | "cert4Back";
+  accent: string;
+};
+
+const certs: Cert[] = [
   {
     img: certIgnition,
     title: "Ignition 8.1",
+    titleKey: "cert1Title",
+    tagKey: "cert1Tag",
     sub: "US-Certified · Inductive Automation",
-    backKey: "cert1Back" as const,
+    backKey: "cert1Back",
     accent: "from-primary/30 to-primary-glow/30",
   },
   {
     img: certEa,
     title: "Electronic Arts",
     sub: "Software Engineering · Forage",
-    backKey: "cert2Back" as const,
+    backKey: "cert2Back",
     accent: "from-rose-300/40 to-orange-300/40",
   },
   {
     img: certHyperskill,
     title: "JetBrains Academy",
     sub: "SQL Fundamentals · Hyperskill",
-    backKey: "cert3Back" as const,
+    backKey: "cert3Back",
     accent: "from-emerald-300/40 to-cyan-300/40",
   },
   {
     img: certKaggle,
     title: "Maksymenko Oleksandr",
     sub: "Python / AI · Kaggle",
-    backKey: "cert4Back" as const,
+    backKey: "cert4Back",
     accent: "from-yellow-300/40 to-sky-300/40",
   },
 ];
@@ -71,8 +83,12 @@ const Certifications = () => {
                 <div className="cert-face cert-back rounded-2xl overflow-hidden bg-foreground text-background shadow-lift p-6 flex flex-col justify-center items-start gap-3">
                   <div className="holo-shine absolute inset-0 opacity-20 mix-blend-overlay pointer-events-none" />
                   <div className="relative">
-                    <div className="text-[10px] font-mono uppercase tracking-widest text-background/60">Certificate</div>
-                    <div className="mt-1.5 text-lg font-semibold leading-tight">{c.title}</div>
+                    <div className="text-[10px] font-mono uppercase tracking-widest text-primary-glow">
+                      {c.tagKey ? tr(c.tagKey) : "Certificate"}
+                    </div>
+                    <div className="mt-1.5 text-lg font-semibold leading-tight">
+                      {c.titleKey ? tr(c.titleKey) : c.title}
+                    </div>
                   </div>
                   <p className="relative text-sm leading-relaxed text-background/85">{tr(c.backKey)}</p>
                   <div className="relative text-[11px] text-background/60">{c.sub}</div>

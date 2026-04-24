@@ -70,35 +70,37 @@ const BentoProjects = () => {
                   className="absolute inset-0 bg-cover bg-center opacity-0 group-hover:opacity-100 transition-opacity duration-700 scale-105 group-hover:scale-100"
                   style={{ backgroundImage: `url(${p.image})` }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-white/95 via-white/70 to-white/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="absolute inset-0 bg-gradient-to-t from-white/95 via-white/80 to-white/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-                <div className="relative h-full flex flex-col p-6 md:p-7">
-                  <div className="flex items-start justify-between">
-                    <div className="w-11 h-11 rounded-xl glass-strong flex items-center justify-center shadow-soft">
+                <div className="relative h-full w-full flex flex-col justify-between p-5 md:p-6 overflow-hidden">
+                  {/* Top row */}
+                  <div className="flex items-start justify-between shrink-0">
+                    <div className="w-10 h-10 md:w-11 md:h-11 rounded-xl glass-strong flex items-center justify-center shadow-soft">
                       <Icon className="w-5 h-5 text-primary" />
                     </div>
                     <ArrowUpRight className="w-5 h-5 text-muted-foreground transition-all duration-500 group-hover:text-primary group-hover:rotate-12" />
                   </div>
 
-                  <h3 className="mt-6 text-lg md:text-xl font-semibold tracking-tight">
+                  {/* Title (always visible) */}
+                  <h3 className="mt-4 text-base md:text-lg lg:text-xl font-semibold tracking-tight line-clamp-2">
                     {tr(p.titleKey)}
                   </h3>
 
-                  {/* Reveal layer */}
-                  <div className="mt-auto">
-                    <p className="text-sm text-foreground/80 max-h-0 opacity-0 group-hover:max-h-32 group-hover:opacity-100 transition-all duration-500 overflow-hidden">
+                  {/* Reveal content */}
+                  <div className="mt-3 flex flex-col gap-2.5 min-w-0">
+                    <p className="text-[13px] md:text-sm text-foreground/80 leading-snug opacity-0 group-hover:opacity-100 transition-opacity duration-500 line-clamp-3">
                       {tr(p.descKey)}
                     </p>
 
-                    <div className="mt-3 flex flex-wrap gap-1.5 translate-y-3 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 delay-75">
+                    <div className="flex flex-wrap gap-1.5 translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 delay-75">
                       {p.tags.map((t) => (
-                        <span key={t} className="px-2.5 py-1 text-[11px] font-medium rounded-full bg-white/90 border border-border text-foreground/80">
+                        <span key={t} className="px-2 py-0.5 text-[10px] md:text-[11px] font-medium rounded-full bg-white/90 border border-border text-foreground/80">
                           {t}
                         </span>
                       ))}
                     </div>
 
-                    <button className="mt-4 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white border border-border text-xs font-semibold text-primary shadow-soft translate-y-3 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 delay-100 hover:bg-accent">
+                    <button className="self-start mt-1 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white border border-border text-[11px] md:text-xs font-semibold text-primary shadow-soft translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 delay-100 hover:bg-accent">
                       {tr("viewProject")}
                       <ArrowUpRight className="w-3.5 h-3.5" />
                     </button>
