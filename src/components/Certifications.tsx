@@ -83,8 +83,12 @@ const Certifications = () => {
                 <div className="cert-face cert-back rounded-2xl overflow-hidden bg-foreground text-background shadow-lift p-6 flex flex-col justify-center items-start gap-3">
                   <div className="holo-shine absolute inset-0 opacity-20 mix-blend-overlay pointer-events-none" />
                   <div className="relative">
-                    <div className="text-[10px] font-mono uppercase tracking-widest text-background/60">Certificate</div>
-                    <div className="mt-1.5 text-lg font-semibold leading-tight">{c.title}</div>
+                    <div className="text-[10px] font-mono uppercase tracking-widest text-primary-glow">
+                      {c.tagKey ? tr(c.tagKey) : "Certificate"}
+                    </div>
+                    <div className="mt-1.5 text-lg font-semibold leading-tight">
+                      {c.titleKey ? tr(c.titleKey) : c.title}
+                    </div>
                   </div>
                   <p className="relative text-sm leading-relaxed text-background/85">{tr(c.backKey)}</p>
                   <div className="relative text-[11px] text-background/60">{c.sub}</div>
