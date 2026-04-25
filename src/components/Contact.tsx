@@ -37,8 +37,17 @@ const Contact = () => {
         body: JSON.stringify(parsed.data),
       });
       if (!res.ok) throw new Error("Network error");
+      
       setStatus("success");
       (e.target as HTMLFormElement).reset();
+
+      // Отправка события успешной конверсии в Google Ads
+      if (typeof window !== "undefined" && (window as any).gtag) {
+        (window as any).gtag('event', 'conversion', {
+            'send_to': 'AW-18117408777/5W09CJWpIaIcEInwhr9D'
+        });
+      }
+
     } catch {
       setStatus("error");
       setErrorMsg(tr("formError"));
