@@ -54,6 +54,17 @@ const Contact = () => {
     }
   };
 
+  // Функция для отслеживания клика по Telegram
+  const handleTelegramClick = () => {
+    if (typeof window !== "undefined" && (window as any).gtag) {
+      (window as any).gtag('event', 'conversion', {
+          'send_to': 'AW-18117408777/8CzhCNTk1qkcEInwhr9D',
+          'value': 1.0,
+          'currency': 'UAH'
+      });
+    }
+  };
+
   return (
     <section id="contact" className="py-24 md:py-32 bg-slate-50 relative overflow-hidden">
       {/* Очень мягкое, невидимое фоновое свечение для объема */}
@@ -86,6 +97,7 @@ const Contact = () => {
                 href="https://t.me/alexandermaksimenko"
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={handleTelegramClick} // <--- ВОТ
                 className="group flex items-center justify-between gap-3 p-5 rounded-2xl bg-slate-900 text-white shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
               >
                 <div className="flex items-center gap-4 min-w-0">
